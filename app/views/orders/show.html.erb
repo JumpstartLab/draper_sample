@@ -1,21 +1,37 @@
-<% title "Order" %>
+<h1>Your Order</h1>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @order.customer_id %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
-<p>
-  <strong>Order Items:</strong>
-  <%= @order.order_items.count %>
-</p>
-
-
-<p>
-  <%= link_to "Edit", edit_order_path(@order) %> |
-  <%= link_to "Destroy", @order, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", orders_path %>
-</p>
+<table>
+  <tr>
+    <th>Customer</th>
+    <td><%= @order.customer_id %></td>
+  </tr>
+  <tr>
+    <th>Status:</th>
+    <td><%= @order.status %></td>
+  </tr>
+  <tr>
+    <th>Items:</th>
+    <td><%= @order.order_items.count %></td>
+  </tr>
+  <tr>
+    <th>Items</th>
+    <th>Title</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Subtotal</th>
+  </tr>
+  <% @order.order_items.each do |order_item| %> 
+    <tr>
+      <td><%= product_image(order_item.product.image_url) %></td>
+      <td><%= order_item.product.title %></td>
+      <td><%= order_item.quantity %></td>
+      <td><%= print_price order_item.product.price %></td>
+      <td><%= print_price order_item.subtotal %></td>
+    </tr>
+  <% end %>
+  
+  <tr>
+    <th>Order Total:</th>
+    <td><%= print_price @order.total %></td>
+  </tr>
+</table>
