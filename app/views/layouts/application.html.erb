@@ -27,6 +27,10 @@
         FoodWorks Online Grocery<br/>
         A Rails Jumpstart Project
       </div>
+      
+      <% if Rails.env.development? %>
+        <%= debug params %>
+      <% end %>
   </div>
   </body>
 </html>

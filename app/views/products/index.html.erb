@@ -5,6 +5,7 @@
     <th></th>
     <th>Product</th>
     <th>Price</th>
+    <th>Stock</th>
   </tr>
   <% @products.each do |product| %>
     <tr>
@@ -16,6 +17,8 @@
         <%= product.description %>
       </td>
       <td><%= print_price(product.price) %></td>
+      <td><%= print_stock(product.stock) %></td>
+      <td><%= link_to "Add to Cart", new_order_item_path(:product_id => product, :order_id => @order.id) %></td>
     </tr>
   <% end %>
 
