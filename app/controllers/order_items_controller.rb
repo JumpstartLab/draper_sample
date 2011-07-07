@@ -1,27 +1,9 @@
 class OrderItemsController < ApplicationController
   before_filter :load_order
 
-  def index
-    @order_items = OrderItem.all
-  end
-
-  def show
-    @order_item = OrderItem.find(params[:id])
-  end
-
-  def new
-    @order_item = @order.order_items.new(:product_id => params[:product_id])
-  end
-
   def create
-    @order_item = OrderItem.new(:order_id => params[:order_id],
-                                :product_id => params[:product_id],
-                                :quantity => OrderItem::DEFAULT_QUANTITY)
-    if @order_item.save
-      redirect_to order_path(@order_item.order), :notice => "Successfully created order item."
-    else
-      render :action => 'new'
-    end
+    @order.create_or_increment_order_item_by_product_id(params[:product_id])
+    redirect_to @order, :notice => "Added the item to the order."
   end
 
   def edit
@@ -43,3 +25,20 @@ class OrderItemsController < ApplicationController
     redirect_to @order_item.order, :notice => "Successfully destroyed order item."
   end
 end
+
+# Unusued code from Create:
+# Option 1: Increment Everything
+# @order_item = @order.order_items.find_or_initialize_by_product_id(
+#                       params[:product_id],
+#                       :quantity => 0)
+#     @order_item.quantity += 1
+
+# Option 2: Increment only existing records
+# @order_item = @order.order_items.find_or_initialize_by_product_id(
+#                   params[:product_id],
+#                   :quantity => OrderItem::DEFAULT_QUANTITY)
+# 
+# @order_item.quantity += 1 unless @order_item.new_record?
+
+# Option 3: Delegate This Responsibility to the Order
+

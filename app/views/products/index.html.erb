@@ -18,7 +18,7 @@
       </td>
       <td><%= print_price(product.price) %></td>
       <td><%= print_stock(product.stock) %></td>
-      <td><%= button_to "Add to Cart", order_items_path(:product_id => product, :order_id => @order.id) %></td>
+      <td><%= button_to "Add to Cart", order_items_path(:product_id => product) %></td>
     </tr>
   <% end %>
 
