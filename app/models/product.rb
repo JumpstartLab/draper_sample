@@ -10,4 +10,8 @@ class Product < ActiveRecord::Base
     data.delete!("$")
     super
   end
+  
+  def to_s
+    title
+  end
 end

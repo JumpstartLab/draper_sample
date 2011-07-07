@@ -12,8 +12,12 @@ class OrderItemsController < ApplicationController
 
   def update
     @order_item = @order.order_items.find(params[:id])
-    if @order_item.update_attributes(params[:order_item])
-      redirect_to @order, :notice  => "Successfully updated order item."
+      
+    if params[:order_item][:quantity] == "0"
+      @order_item.destroy
+      redirect_to @order, :notice  => "Removed #{@order_item.product}."
+    elsif @order_item.update_attributes(:quantity => params[:order_item][:quantity])
+      redirect_to @order, :notice  => "Quantity of #{@order_item.product} updated."
     else
       render :action => 'edit'
     end
