@@ -26,6 +26,7 @@
       <td><%= product_image(order_item.product.image_url) %></td>
       <td><%= order_item.product.title %></td>
       <td><%= link_to order_item.quantity, edit_order_item_path(order_item) %></td>
+      <td><%= print_stock(order_item.product.stock, order_item.quantity) %></td>
       <td><%= print_price order_item.product.price %></td>
       <td><%= print_price order_item.subtotal %></td>
       <td><%= link_to "remove", order_item_path(order_item), :method => :delete %></td>
