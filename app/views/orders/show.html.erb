@@ -19,6 +19,7 @@
     <th>Quantity</th>
     <th>Unit Price</th>
     <th>Subtotal</th>
+    <th>Actions</th>
   </tr>
   <% @order.order_items.each do |order_item| %> 
     <tr>
@@ -27,6 +28,7 @@
       <td><%= order_item.quantity %></td>
       <td><%= print_price order_item.product.price %></td>
       <td><%= print_price order_item.subtotal %></td>
+      <td><%= link_to "remove", order_item_path(order_item), :method => :delete %></td>
     </tr>
   <% end %>
   
@@ -34,4 +36,11 @@
     <th>Order Total:</th>
     <td><%= print_price @order.total %></td>
   </tr>
+  <tr>
+    <th>Actions</th>
+    <td>
+      <%= link_to "Empty Cart", order_path(@order), :method => :delete %>
+    </td>
+  </tr>
+  
 </table>
