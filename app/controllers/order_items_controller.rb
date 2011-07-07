@@ -11,18 +11,17 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    @order_item = OrderItem.find(params[:id])
+    @order_item = @order.order_items.find(params[:id])
     if @order_item.update_attributes(params[:order_item])
-      redirect_to @order_item, :notice  => "Successfully updated order item."
+      redirect_to @order, :notice  => "Successfully updated order item."
     else
       render :action => 'edit'
     end
   end
 
   def destroy
-    @order_item = OrderItem.find(params[:id])
-    @order_item.destroy
-    redirect_to @order_item.order, :notice => "Successfully destroyed order item."
+    @order.order_items.destroy(params[:id])
+    redirect_to @order, :notice => "Successfully destroyed order item."
   end
 end
 
