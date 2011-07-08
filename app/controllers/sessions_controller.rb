@@ -1,11 +1,10 @@
 class SessionsController < ApplicationController
   
   def create
-    # render :text => [
-    #       request.env["omniauth.auth"]["provider"],
-    #       request.env["omniauth.auth"]["uid"],
-    #       request.env["omniauth.auth"]["user_info"]["name"]].join(", ")
-    #raise "bang!"
-    @user = User.find_or_create_by_auth(request.env["omniauth.auth"])
+    session[:user_id] =     User.find_or_create_by_auth(request.env["omniauth.auth"]).id
+    redirect_to products_path
+  end
+  
+  def failure
   end
 end

@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
     end
     return user
   end
+  
+  def to_s
+    name
+  end
 end

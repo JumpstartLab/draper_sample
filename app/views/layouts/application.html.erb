@@ -9,6 +9,16 @@
   </head>
   <body>
   <p style="color: green"><%= flash[:notice] %></p>
+
+  <div id="account">
+    <% if current_user %>
+      <span>Welcome, <%= current_user %>!</span>
+      <%= link_to "logout", logout_path %>
+    <% else %>
+      Login Here
+    <% end %>
+  </div>
+
   <div class="wrapper">
       <div class="header">
         <h1><%= link_to "FoodWorks", products_path %></h1>
