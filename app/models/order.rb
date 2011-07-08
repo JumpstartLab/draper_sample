@@ -1,9 +1,8 @@
 class Order < ActiveRecord::Base
-  attr_accessible :customer_id, :status
+  attr_accessible :status
   
   has_many :order_items, :dependent => :destroy
-  #belongs_to :customer, :class_name => "User"
-  belongs_to :user, :foreign_key => :customer_id
+  belongs_to :user
   
   def total
     #order_items.collect{|order_item| order_item.subtotal}.sum
