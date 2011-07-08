@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
 private
   def load_order
     if current_user
-      @order = current_user.orders.find_or_initialize_by_id(session[:order_id], :status => "unsubmitted")
+      if params[:id] && controller_name == "orders"
+        @order = current_user.orders.find(params[:id])
+      else
+        @order = current_user.orders.find_or_initialize_by_id(session[:order_id], :status => "unsubmitted")
+      end
     else
       @order = Order.find_or_initialize_by_id(session[:order_id], :status => "unsubmitted")
     end

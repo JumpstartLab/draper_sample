@@ -1,14 +1,20 @@
 class OrdersController < ApplicationController
-  before_filter :load_order, :except => [:index]
+  before_filter :load_order, :except => [:merge]
   
   def index
-    @orders = Order.all
+    @orders = current_user.orders
   end
 
   def show
   end
 
   def edit
+  end
+  
+  def merge
+    order = current_user.orders.find(session[:order_id])
+    order.merge_items_from_order_id(params[:id])
+    redirect_to order, :notice => "Merged in items from Order #{params[:id]}"
   end
 
   def update
@@ -21,7 +27,12 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-    session[:order_id] = nil
+    session[:order_id] = nil if (session[:order_id] == params[:id].to_i)
     redirect_to products_path, :notice => "Successfully destroyed order."
+  end
+  
+  def create
+    session[:order_id] = nil
+    redirect_to products_path, :notice => "Created a New Order"
   end
 end

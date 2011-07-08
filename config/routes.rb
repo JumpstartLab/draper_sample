@@ -1,5 +1,11 @@
 Jsmerchant::Application.routes.draw do
-  resources :orders, :products
+  resources :orders do
+    member do
+      put :merge
+    end
+  end
+  
+  resources :products
   resources :order_items, :only => [:create, :edit, :update, :destroy]
   
   root :to => "products#index"

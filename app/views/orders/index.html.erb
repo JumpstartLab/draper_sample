@@ -2,20 +2,26 @@
 
 <table>
   <tr>
-    <th>ID</th>
-    <th>Customer</th>
-    <th>Status</th>
+    <th>Order ID</th>
+    <th>Item Count</th>
+    <th>Total</th>
+    <th>Actions</th>
   </tr>
-  <% for order in @orders %>
+  <% @orders.each do |order| %>
     <tr>
       <td><%= order.id %></td>
-      <td><%= order.customer_id %></td>
-      <td><%= order.status %></td>
-      <td><%= link_to "Show", order %></td>
-      <td><%= link_to "Edit", edit_order_path(order) %></td>
-      <td><%= link_to "Destroy", order, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= order.order_items.count %></td>
+      <td><%= print_price order.total %></td>
+      <td>
+        <%= link_to "Show", order %> |
+        <%= link_to "Edit", edit_order_path(order) %> |
+        <%= link_to "Destroy", order, :confirm => 'Are you sure?', :method => :delete %>
+        <% unless order == @order %>
+          | <%= button_to "Merge to Cart", merge_order_path(order), :method => :put %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Order", new_order_path %></p>
+<br/>
+<p><%= button_to "New Order", orders_path, :method => :post %></p>

@@ -33,4 +33,19 @@ class Order < ActiveRecord::Base
     save    
   end
   
+  def merge_items_from_order_id(target_id)
+    target = self.user.orders.find(target_id)
+    target.order_items.each do |item|
+      existing_item = order_items.find_by_product_id(item.product_id)
+      unless existing_item.nil?
+        existing_item.quantity += item.quantity
+        existing_item.save
+      else
+        item.order = self
+        item.save
+      end
+    end
+    target.reload.destroy
+  end
+  
 end
