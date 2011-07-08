@@ -8,4 +8,5 @@ Jsmerchant::Application.routes.draw do
   match "/auth/failure", :to => "sessions#failure"
   match "/logout", :to => "sessions#destroy"
   match "/login" => redirect("/auth/twitter")
+  match "/cart", :to => "orders#show"
 end
