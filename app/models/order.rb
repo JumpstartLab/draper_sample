@@ -28,4 +28,9 @@ class Order < ActiveRecord::Base
     save
   end
   
+  def user_logs_in(user)
+    self.user = user
+    save    
+  end
+  
 end
