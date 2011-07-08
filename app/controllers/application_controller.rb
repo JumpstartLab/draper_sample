@@ -13,6 +13,8 @@ private
       @order.save!
       session[:order_id] = @order.id
     end
+    
+    return @order
   end  
   
   def current_user

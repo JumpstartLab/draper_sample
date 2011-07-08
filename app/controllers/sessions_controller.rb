@@ -1,8 +1,11 @@
 class SessionsController < ApplicationController
   
   def create
-    # Associate with an existing anonymous order if there is one
-    session[:user_id] =     User.find_or_create_by_auth(request.env["omniauth.auth"]).id
+    user = User.find_or_create_by_auth(request.env["omniauth.auth"])
+    order = load_order
+    order.user = user
+    order.save
+    session[:user_id] = user.id
     redirect_to products_path, :notice => "Welcome!"
   end
   
@@ -11,6 +14,7 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:user_id] = nil
+    load_order.user_logs_out
     redirect_to products_path, :notice => "You've been logged out!"
   end
 end

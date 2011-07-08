@@ -23,4 +23,9 @@ class Order < ActiveRecord::Base
     return order_item
   end
   
+  def user_logs_out
+    self.user = nil
+    save
+  end
+  
 end
