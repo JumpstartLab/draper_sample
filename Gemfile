@@ -8,6 +8,7 @@ gem 'client_side_validations'
 group :development do
   gem 'sqlite3'
   gem 'nifty-generators'
+  gem 'powder'
 end
 
 group :test do

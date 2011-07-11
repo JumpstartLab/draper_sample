@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :load_order, :except => [:merge]
   before_filter :check_order_editability, :only => [:edit, :update, :purchase, :destroy, :merge]
+  before_filter :login_required, :only => [:index, :destroy]
   
   def index
     @orders = current_user.orders

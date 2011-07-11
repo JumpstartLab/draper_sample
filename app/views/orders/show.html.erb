@@ -62,11 +62,16 @@
       <th>Shipping To:</th>
       <td colspan="6">
         <% if @order.editable? %>
-          <% unless current_user.addresses.empty? %>
-            <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
-            or
-          <% end %>
-          <%= link_to "Add a New Address", new_address_path %>
+          <% if current_user %>
+        
+            <% unless current_user.addresses.empty? %>
+              <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
+              or
+            <% end %>
+            <%= link_to "Add a New Address", new_address_path %>
+        <% else %>
+          (login to set addresses)
+        <% end %>
         <% else %>
           <%= @order.address %>
         <% end %>

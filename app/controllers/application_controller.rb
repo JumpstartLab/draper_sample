@@ -30,4 +30,10 @@ private
       redirect_to cart_path, :notice => "Sorry, that order is not accessible."
     end
   end
+  
+  def login_required
+    unless current_user
+      redirect_to products_path
+    end
+  end
 end
