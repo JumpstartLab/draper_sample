@@ -24,6 +24,18 @@ class OrdersController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  def purchase
+    # Find the order
+    # Set the address_id
+    # Change the status to "submitted"
+    # Save it
+    # Remove the order_id from the session so they can't edit it
+    # Display a thank you page with an order summary
+    #
+    # BONUS: From the Orders index let's "disable" orders that have
+    #   been submitted (no editing, no merging, no adding, etc)
+  end
 
   def destroy
     @order.destroy
