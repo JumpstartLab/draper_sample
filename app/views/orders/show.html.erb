@@ -1,31 +1,32 @@
 <h1>Your Order</h1>
-
-<table>
-  <tr>
-    <th>Customer</th>
-    <td><%= @order.user %></td>
-  </tr>
-  <tr>
-    <th>Order ID</th>
-    <td><%= @order.id %></td>
-  </tr>
-  <tr>
-    <th>Status:</th>
-    <td><%= @order.status %></td>
-  </tr>
-  <tr>
-    <th>Items:</th>
-    <td><%= @order.order_items.count %></td>
-  </tr>
-  <tr>
-    <th>Items</th>
-    <th>Title</th>
-    <th>Quantity</th>
-    <th>Unit Price</th>
-    <th>Subtotal</th>
-    <th>Actions</th>
-  </tr>
-  <% @order.order_items.each do |order_item| %> 
+<%= form_for @order do |f| %>
+  <table>
+    <tr>
+      <th>Customer</th>
+      <td><%= @order.user %></td>
+    </tr>
+    <tr>
+      <th>Order ID</th>
+      <td><%= @order.id %></td>
+    </tr>
+    <tr>
+      <th>Status:</th>
+      <td><%= @order.status %></td>
+    </tr>
+    <tr>
+      <th>Items:</th>
+      <td><%= @order.order_items.count %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Stock</th>
+      <th>Unit Price</th>
+      <th>Subtotal</th>
+      <th>Actions</th>
+    </tr>
+    <% @order.order_items.each do |order_item| %> 
     <tr>
       <td><%= product_image(order_item.product.image_url) %></td>
       <td><%= order_item.product.title %></td>
@@ -35,17 +36,24 @@
       <td><%= print_price order_item.subtotal %></td>
       <td><%= link_to "remove", order_item_path(order_item), :method => :delete %></td>
     </tr>
-  <% end %>
-  
-  <tr>
-    <th>Order Total:</th>
-    <td><%= print_price @order.total %></td>
-  </tr>
-  <tr>
-    <th>Actions</th>
-    <td>
-      <%= link_to "Empty Cart", order_path(@order), :method => :delete %>
-    </td>
-  </tr>
-  
-</table>
+    <% end %>
+
+    <tr>
+      <th>Order Total:</th>
+      <td><%= print_price @order.total %></td>
+    </tr>
+    <tr>
+      <th>Actions</th>
+      <td>
+        <%= link_to "Empty Cart", order_path(@order), :method => :delete %>
+      </td>
+    </tr>
+    <tr>
+      <th>Shipping To:</th>
+      <td colspan="6">
+        <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
+        ( add address link )
+      </td>
+    </tr>  
+  </table>
+<% end %>

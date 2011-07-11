@@ -9,4 +9,8 @@ class Address < ActiveRecord::Base
   validates_length_of :zip, :is => 5
   #validates_inclusion_of :state, :in => ["DC", "VA", "CA", "MD"]
   validates_format_of :state, :with => /^[A-Z]{2}$/, :message => "should be a capitalized two letter abbreviation"
+  
+  def to_s
+    [line1, line2, city, state, zip].reject(&:blank?).join(", ")
+  end
 end
