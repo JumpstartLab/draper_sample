@@ -1,9 +1,13 @@
 class Order < ActiveRecord::Base
-  attr_accessible :status, :address
+  attr_accessible :status, :address, :address_id
   
   has_many :order_items, :dependent => :destroy
   belongs_to :user
   belongs_to :address
+  
+  def editable?
+    self.status != "submitted"
+  end
   
   def total
     #order_items.collect{|order_item| order_item.subtotal}.sum

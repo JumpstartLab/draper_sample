@@ -13,11 +13,14 @@
       <td><%= order.order_items.count %></td>
       <td><%= print_price order.total %></td>
       <td>
-        <%= link_to "Show", order %> |
-        <%= link_to "Edit", edit_order_path(order) %> |
-        <%= link_to "Destroy", order, :confirm => 'Are you sure?', :method => :delete %>
-        <% unless order == @order %>
-          | <%= button_to "Merge to Cart", merge_order_path(order), :method => :put %>
+        <%= link_to "Show", order %>
+        <% if order.editable? %>
+           |
+          <%= link_to "Edit", edit_order_path(order) %> |
+          <%= link_to "Destroy", order, :confirm => 'Are you sure?', :method => :delete %>
+          <% unless order == @order %>
+            | <%= button_to "Merge to Cart", merge_order_path(order), :method => :put %>
+          <% end %>
         <% end %>
       </td>
     </tr>

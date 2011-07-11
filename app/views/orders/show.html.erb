@@ -30,11 +30,19 @@
     <tr>
       <td><%= product_image(order_item.product.image_url) %></td>
       <td><%= order_item.product.title %></td>
-      <td><%= link_to order_item.quantity, edit_order_item_path(order_item) %></td>
+      <td>
+        <% if @order.editable? %>
+          <%= link_to order_item.quantity, edit_order_item_path(order_item) %>
+        <% else %>
+          <%= order_item.quantity %>
+        <% end %>
+      </td>
       <td><%= print_stock(order_item.product.stock, order_item.quantity) %></td>
       <td><%= print_price order_item.product.price %></td>
       <td><%= print_price order_item.subtotal %></td>
-      <td><%= link_to "remove", order_item_path(order_item), :method => :delete %></td>
+      <% if @order.editable? %>
+        <td><%= link_to "remove", order_item_path(order_item), :method => :delete %></td>
+      <% end %>
     </tr>
     <% end %>
 
@@ -42,23 +50,29 @@
       <th>Order Total:</th>
       <td><%= print_price @order.total %></td>
     </tr>
-    <tr>
-      <th>Actions</th>
-      <td>
-        <%= link_to "Empty Cart", order_path(@order), :method => :delete %>
-      </td>
-    </tr>
+    <% if @order.editable? %>
+      <tr>
+        <th>Actions</th>
+        <td>
+          <%= link_to "Empty Cart", order_path(@order), :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
     <tr>
       <th>Shipping To:</th>
       <td colspan="6">
-        <% unless current_user.addresses.empty? %>
-          <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
-          or
+        <% if @order.editable? %>
+          <% unless current_user.addresses.empty? %>
+            <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
+            or
+          <% end %>
+          <%= link_to "Add a New Address", new_address_path %>
+        <% else %>
+          <%= @order.address %>
         <% end %>
-        <%= link_to "Add a New Address", new_address_path %>
       </td>
     </tr>  
   </table>
   <br/>
-  <%= f.submit "Submit Order" %>
+  <%= f.submit "Submit Order" if @order.editable? %>
 <% end %>
