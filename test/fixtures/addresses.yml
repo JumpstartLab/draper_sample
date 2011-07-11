@@ -1,0 +1,15 @@
+one:
+  line1: MyString
+  line2: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  user_id: 1
+
+two:
+  line1: MyString
+  line2: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  user_id: 1

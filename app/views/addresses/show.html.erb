@@ -1,0 +1,32 @@
+<% title "Address" %>
+
+<p>
+  <strong>Line1:</strong>
+  <%= @address.line1 %>
+</p>
+<p>
+  <strong>Line2:</strong>
+  <%= @address.line2 %>
+</p>
+<p>
+  <strong>City:</strong>
+  <%= @address.city %>
+</p>
+<p>
+  <strong>State:</strong>
+  <%= @address.state %>
+</p>
+<p>
+  <strong>Zip:</strong>
+  <%= @address.zip %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @address.user_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_address_path(@address) %> |
+  <%= link_to "Destroy", @address, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", addresses_path %>
+</p>

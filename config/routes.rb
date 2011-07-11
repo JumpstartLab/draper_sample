@@ -1,4 +1,6 @@
 Jsmerchant::Application.routes.draw do
+  resources :addresses
+
   resources :orders do
     member do
       put :merge
