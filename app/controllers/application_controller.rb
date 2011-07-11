@@ -24,4 +24,10 @@ private
   def current_user
     @current_user ||= User.find_by_id(session[:user_id])
   end
+  
+  def check_order_editability
+    unless @order.editable?      
+      redirect_to cart_path, :notice => "Sorry, that order is not accessible."
+    end
+  end
 end

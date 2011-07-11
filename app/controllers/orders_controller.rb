@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_filter :load_order, :except => [:merge]
+  before_filter :check_order_editability, :only => [:edit, :update, :purchase, :destroy, :merge]
   
   def index
     @orders = current_user.orders
