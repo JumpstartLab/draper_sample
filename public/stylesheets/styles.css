@@ -228,3 +228,18 @@ div.field_with_errors input{
 .error_messages ul li{
   font-weight: bold;
 }
+
+div.header h1 a{
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFF;
+}
+
+div.header h1 a:visited{
+  color: #FFF;
+}
+
+div.header h1 a:hover{
+  color: #FAA;
+  background: none;
+}
