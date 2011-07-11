@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :status
+  attr_accessible :status, :address
   
   has_many :order_items, :dependent => :destroy
   belongs_to :user

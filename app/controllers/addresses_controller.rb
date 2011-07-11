@@ -1,41 +1,37 @@
 class AddressesController < ApplicationController
   def index
-    @addresses = Address.all
-  end
-
-  def show
-    @address = Address.find(params[:id])
+    @addresses = current_user.addresses
   end
 
   def new
-    @address = Address.new
+    @address = current_user.addresses.new
   end
 
   def create
-    @address = Address.new(params[:address])
-    if @address.save
-      redirect_to @address, :notice => "Successfully created address."
+    @address = current_user.addresses.new(params[:address])
+    if @address.save && load_order.update_attributes(:address => @address)
+      redirect_to cart_path, :notice => "Successfully created address."
     else
       render :action => 'new'
     end
   end
 
   def edit
-    @address = Address.find(params[:id])
+    @address = current_user.addresses.find(params[:id])
   end
 
   def update
-    @address = Address.find(params[:id])
+    @address = current_user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
-      redirect_to @address, :notice  => "Successfully updated address."
+      redirect_to addresses_path, :notice  => "Successfully updated address."
     else
       render :action => 'edit'
     end
   end
 
   def destroy
-    @address = Address.find(params[:id])
+    @address = current_user.addresses.find(params[:id])
     @address.destroy
-    redirect_to addresses_url, :notice => "Successfully destroyed address."
+    redirect_to addresses_path, :notice => "Successfully destroyed address."
   end
 end

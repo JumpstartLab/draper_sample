@@ -8,6 +8,7 @@
     <th>State</th>
     <th>Zip</th>
     <th>User</th>
+    <th>Actions</th>
   </tr>
   <% for address in @addresses %>
     <tr>
@@ -17,9 +18,10 @@
       <td><%= address.state %></td>
       <td><%= address.zip %></td>
       <td><%= address.user_id %></td>
-      <td><%= link_to "Show", address %></td>
-      <td><%= link_to "Edit", edit_address_path(address) %></td>
-      <td><%= link_to "Destroy", address, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td>
+        <%= link_to "Edit", edit_address_path(address) %>
+        <%= link_to "Destroy", address, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
 </table>

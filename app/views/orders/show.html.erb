@@ -1,5 +1,5 @@
 <h1>Your Order</h1>
-<%= form_for @order do |f| %>
+<%= form_for @order, :url => purchase_order_path(@order), :method => :put do |f| %>
   <table>
     <tr>
       <th>Customer</th>
@@ -51,9 +51,14 @@
     <tr>
       <th>Shipping To:</th>
       <td colspan="6">
-        <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
-        ( add address link )
+        <% unless current_user.addresses.empty? %>
+          <%= f.select :address_id, current_user.addresses.collect{|address| [address.to_s, address.id] } %>
+          or
+        <% end %>
+        <%= link_to "Add a New Address", new_address_path %>
       </td>
     </tr>  
   </table>
+  <br/>
+  <%= f.submit "Submit Order" %>
 <% end %>

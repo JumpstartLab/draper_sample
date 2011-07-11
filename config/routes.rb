@@ -4,6 +4,7 @@ Jsmerchant::Application.routes.draw do
   resources :orders do
     member do
       put :merge
+      put :purchase
     end
   end
   
