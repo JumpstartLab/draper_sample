@@ -10,18 +10,7 @@
   <body>
   <div class="flash"><%= flash[:notice] %></div>
 
-  <div id="account">
-    <% if current_user %>
-      <span>Welcome, <%= current_user %>!</span>
-      <%= link_to "logout", logout_path %>
-    <% else %>
-      <%= link_to "Login Here", login_path %>
-    <% end %>
-    <hr/>
-    <%= link_to "Current Cart", cart_path %><br/>
-    <%= link_to "Your Orders", orders_path %><br/>
-    <%= link_to "Manage Addresses", addresses_path %><br/>
-  </div>
+  <%= render 'shared/sidebar' %>
 
   <div class="wrapper">
       <div class="header">

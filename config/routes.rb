@@ -13,9 +13,11 @@ Jsmerchant::Application.routes.draw do
   
   root :to => "products#index"
   
-  match "/auth/twitter/callback", :to => "sessions#create"
+  match "/auth/:provider/callback", :to => "sessions#create"
   match "/auth/failure", :to => "sessions#failure"
   match "/logout", :to => "sessions#destroy"
-  match "/login" => redirect("/auth/twitter")
+  #match "/login" => redirect("/auth/twitter")
+  match "/login_twitter" => redirect("/auth/twitter")
+  match "/login_github" => redirect("/auth/github")
   match "/cart", :to => "orders#show"
 end
