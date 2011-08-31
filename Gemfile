@@ -12,4 +12,5 @@ group :development, :test do
   gem 'capybara'
   gem 'rspec-rails'
   gem 'guard'
+  gem 'guard-rspec'
 end
